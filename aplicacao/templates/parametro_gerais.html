@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% load bootstrap4 %}
+{% load crispy_forms_tags %}
+
+{% block conteudo %}
+    <div class="container">
+            <h1>Parametons Gerais </h1>
+           
+            <form action="{% url 'parametro' %}" method="POST" class="form" autocomplete="off" enctype="multipart/form-data">
+                {% csrf_token %}
+
+                {{ form|crispy }}
+                {% buttons %}
+                    <button type="submit" class="btn btn-primary">Salvar</button>
+                {% endbuttons %}
+            </form>
+    </div>
+    
+    {% bootstrap_javascript jquery='full' %}
+
+</script>
+    
+{% endblock conteudo %}

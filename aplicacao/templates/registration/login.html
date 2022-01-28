@@ -1,0 +1,60 @@
+{% extends "registration/base_login_custom.html" %}
+{% load i18n static %}
+
+{% block content %}
+    {% if form.errors and not form.non_field_errors %}
+        <p class="alert alert-danger">
+            {% if form.errors.items|length == 1 %}{% trans "Corrija o erro abaixo." %}{% else %}
+                {% trans "Por favor corrija os erros abaixo." %}{% endif %}
+        </p>
+    {% endif %}
+
+    {% if form.non_field_errors %}
+        {% for error in form.non_field_errors %}
+            <p class="alert alert-danger">
+                {{ error }}
+            </p>
+        {% endfor %}
+    {% endif %}
+
+
+    <form action="{{ app_path }}" method="post" id="login-form">{% csrf_token %}
+        <div class="input-group mb-3">
+            <input type="text" id="id_username" name="username" class="form-control" placeholder="{% trans 'Username' %}">
+            <div class="input-group-append">
+                <div class="input-group-text">
+                    <span class="fas fa-user"></span>
+                </div>
+            </div>
+            {{ form.username.errors }}
+        </div>
+
+        <div class="input-group mb-3">
+            <input type="password" id="id_password" name="password" class="form-control" placeholder="{% trans 'Password' %}">
+            <div class="input-group-append">
+                <div class="input-group-text">
+                    <span class="fas fa-lock"></span>
+                </div>
+            </div>
+            {{ form.password.errors }}
+            <input type="hidden" name="next" value="{{ next }}"/>
+        </div>
+        {% url 'admin_password_reset' as password_reset_url %}
+        {% if password_reset_url %}
+            <div class="password-reset-link">
+                <a href="{{ password_reset_url }}">{% trans 'Esqueceu sua senha ou nome de usuário?' %}</a>
+            </div>
+        {% endif %}
+        <div class="row">
+            <div class="col-8">
+
+            </div>
+            <!-- /.col -->
+            <div class="col-4">
+                <button type="submit" class="btn btn-primary btn-block">{% trans 'Entrar' %}</button>
+            </div>
+            <!-- /.col -->
+        </div>
+    </form>
+
+{% endblock %}

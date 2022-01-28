@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% load bootstrap4 %}
+
+{% block conteudo %}
+    <div class="container">
+            <h1>Contato Empresa </h1>
+           
+            <form action="{% url 'evento' %}" method="GET" class="form" autocomplete="off" enctype="multipart/form-data">
+                {% csrf_token %}
+
+                {% bootstrap_form form%}
+                {% buttons %}
+                    <button type="submit" class="btn btn-primary">Salvar</button>
+                {% endbuttons %}
+            </form>
+    </div>
+    
+    {% bootstrap_javascript jquery='full' %}
+
+</script>
+    
+{% endblock conteudo %}
